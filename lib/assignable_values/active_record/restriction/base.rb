@@ -13,19 +13,9 @@ module AssignableValues
           ensure_values_given
           setup_default
           define_assignable_values_method
-          define_humanized_values
           setup_validation
         end
         
-        def define_humanized_values
-          restriction = self
-          enhance_model_singleton do
-            define_method "humanized_#{restriction.property}_enums" do 
-              return { :values => Array(@values) }
-            end
-          end
-        end
-
         def validate_record(record)
           value = current_value(record)
           unless allow_blank?(record) && value.blank?

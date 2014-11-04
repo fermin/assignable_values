@@ -8,6 +8,16 @@ module AssignableValues
           define_humanized_value_instance_method
           define_humanized_value_class_method
           define_humanized_values_instance_method
+          define_humanized_values_class_method
+        end
+
+        def define_humanized_values_class_method
+          restriction = self
+          enhance_model_singleton do
+            define_method "humanized_#{restriction.property.to_s.pluralize}" do
+              restriction.humanized_values(self)
+            end
+          end
         end
 
         def humanized_value(values, value) # we take the values because that contains the humanizations in case humanizations are hard-coded as a hash
