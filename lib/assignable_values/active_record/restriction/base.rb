@@ -21,7 +21,7 @@ module AssignableValues
           restriction = self
           enhance_model_singleton do
             define_method "humanized_#{restriction.property}_enums" do 
-              @values
+              return { :values => Array(@values) }
             end
           end
         end
