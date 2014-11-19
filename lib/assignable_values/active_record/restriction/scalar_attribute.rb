@@ -9,6 +9,19 @@ module AssignableValues
           define_humanized_value_class_method
           define_humanized_values_instance_method
           define_humanized_values_class_method
+          define_hash_values_class_method
+        end
+
+        def define_hash_values_class_method
+          restriction = self
+          enhance_model_singleton do
+            define_method "hashed_#{restriction.property.to_s.pluralize}" do
+              values = restriction.humanized_values(self)
+              if values
+                values.inject({}){|h, v| h.merge!(v.humanized => v.value)}
+              end
+            end
+          end
         end
 
         def define_humanized_values_class_method
