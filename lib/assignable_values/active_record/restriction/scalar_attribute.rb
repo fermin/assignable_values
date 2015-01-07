@@ -9,7 +9,7 @@ module AssignableValues
           define_humanized_value_class_method
           define_humanized_values_instance_method
           define_humanized_values_class_method
-          define_hash_values_class_method
+          #define_hash_values_class_method
         end
 
         def define_hash_values_class_method
