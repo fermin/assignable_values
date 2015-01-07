@@ -9,28 +9,7 @@ module AssignableValues
           define_humanized_value_class_method
           define_humanized_values_instance_method
           define_humanized_values_class_method
-          #define_hash_values_class_method
-        end
-
-        def define_hash_values_class_method
-          restriction = self
-          enhance_model_singleton do
-            define_method "hashed_#{restriction.property.to_s.pluralize}" do
-              values = restriction.humanized_values(self)
-              if values
-                values.inject({}){|h, v| h.merge!(v.humanized => v.value)}
-              end
-            end
-          end
-        end
-
-        def define_humanized_values_class_method
-          restriction = self
-          enhance_model_singleton do
-            define_method "humanized_#{restriction.property.to_s.pluralize}" do
-              restriction.humanized_values(self)
-            end
-          end
+          define_hash_values_class_method
         end
 
         def humanized_value(values, value) # we take the values because that contains the humanizations in case humanizations are hard-coded as a hash
@@ -94,6 +73,27 @@ module AssignableValues
         def define_humanized_values_instance_method
           restriction = self
           enhance_model do
+            define_method "humanized_#{restriction.property.to_s.pluralize}" do
+              restriction.humanized_values(self)
+            end
+          end
+        end
+
+        def define_hash_values_class_method
+          restriction = self
+          enhance_model_singleton do
+            define_method "hashed_#{restriction.property.to_s.pluralize}" do
+              values = restriction.assignable_values(self)
+              values.inject({}) do |h, value|
+                h.merge!(restriction.humanized_value(values, value) => value)
+              end
+            end
+          end
+        end
+
+        def define_humanized_values_class_method
+          restriction = self
+          enhance_model_singleton do
             define_method "humanized_#{restriction.property.to_s.pluralize}" do
               restriction.humanized_values(self)
             end

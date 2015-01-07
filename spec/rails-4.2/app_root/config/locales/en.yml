@@ -1,0 +1,26 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+
+  errors:
+    messages:
+      inclusion: "is not included in the list"
+
+  assignable_values:
+    song:
+      genre:
+        pop: 'Pop music'
+        rock: 'Rock music'
+      sub_genre:
+        pop: 'Pop music'
+        rock: 'Rock music'
+      year:
+        '1977': 'The year a new hope was born'
+        '1980': 'The year the Empire stroke back'
+        '1983': 'The year the Jedi returned'
+    recording/vinyl:
+      year:
+        '1977': 'The year a new hope was born'
+        '1980': 'The year the Empire stroke back'
+        '1983': 'The year the Jedi returned'

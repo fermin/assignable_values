@@ -586,6 +586,16 @@ describe AssignableValues::ActiveRecord do
             klass.new.humanized_genres.collect(&:humanized).sort.should =~ ['Pop music', 'Rock music']
           end
 
+
+          it 'should return a hash ' do
+            klass = Song.disposable_copy do
+              assignable_values_for :genre do
+                { 'pop' => 'Pop music', 'rock' => 'Rock music' }
+              end
+            end
+            klass.hashed_genres.should =~ {'Pop music' => 'pop', 'Rock music' => 'rock'}
+          end
+
           it "should correctly humanize values if the humanizations were declared using a hash, the values are not strings, and the list of humanized values hasn't been called before (bugfix)" do
             klass = Song.disposable_copy do
               assignable_values_for :duration do
